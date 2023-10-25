@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+
+int num;
+
+cout << "digite um numero" << endl;
+cin >> num;
+
+if ( num >= 0)
+{
+    cout << "é zero" << endl;
+}else{
+    cout << " é negativo" << endl;
+}
+
+return 0;
+}
