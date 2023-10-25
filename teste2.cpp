@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 int O_MEU_NUMERO = 10;                  //Número Inteiro
@@ -11,8 +13,7 @@ int x = 2, y=3, z=14;
 int minutosPorHora=60;
 int numero;
 int raio;
-int main()
-
+/*int main()
 {
     //tendo em consideração que a área do circulo
     //é PI * raio * raio, calcular a área do circulo
@@ -53,31 +54,48 @@ int main()
     // ++ adiciona um valor à varial
     // += ou -= é como se fosse a + 6 = 10 mas fica a+=6
     //& serve para comparar 2 numeros
+*/
 
+/*int main()
+{
+    int num = 0;
+    cout << "Digite um número: ";
+
+    while (num < 5)
+    {
+        cout << " digite um número:";
+        cin >> num;
+    }
+    
     return 0;
-}
-
-
-int a = 10;
-int b = 20;
-int c = 30;
-
+}*/
 
 int main()
 {
-    if (a < b)
-    {
-        cout << "é vdd" << endl;
-    }
-    else if (a<c)
-    {
-        cout << " é vdd" << endl;
-    }
-    else if (a > c)
-    {
-        cout << "é mentira" << endl;
-    }
 
     
+    int num = 0;
+    srand((unsigned) time(0));
+    int numSorte = 1+(rand()%100);
+
     
+    while (numSorte != num)
+    {
+        cout << "Diga o numero da sorte: ";
+        cin >> num;
+        if (numSorte > num)
+        {
+            cout << "É Maior" << endl;
+        }
+        else if (numSorte < num)
+        {
+            cout << "É Menor" << endl;
+        }else{
+            cout << "Acertou o Numero da Sorte" << endl;
+        }
+        
+        
+    }
+    cout << "Acabou o jogo" << endl;
+    return 0;
 }
