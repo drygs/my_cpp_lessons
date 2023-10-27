@@ -70,7 +70,7 @@ int raio;
     return 0;
 }*/
 
-int main()
+/*int main()
 {
 
     
@@ -98,4 +98,74 @@ int main()
     }
     cout << "Acabou o jogo" << endl;
     return 0;
+}*/
+
+/*int main()
+{
+    for (int n = 0;n<=10; n++)
+    {
+        cout << "Diogo" << endl;
+    }
+    return 0;
+    
+}*/
+
+/*int main()
+{
+    int i = 1;
+    do
+    {
+        cout <<"olá" << endl;
+    } while (i != 10);
+    return 0;
+    
+}*/
+/*int main(){
+    cout << " inicio do Ciclo for" << endl;
+    for (int n = 0; n <= 10; n++)
+    {
+        cout << n << endl;
+        if (n == 4)
+        {
+            break;
+        }
+
+    
+    }
+    cout << " fim do Ciclo For" << endl;
+    return 0;
+}*/
+
+/*int main()
+{
+    int teste[4] ={7,8,9,7};
+    for (int i = 0; i < 4; i++)
+    {
+        cout << teste[i] << endl;
+    }
+
+    return 0;
+}*/
+
+int main(){
+    int chave [5];
+    int estrelas[2];
+
+    for (int i = 0; i < 4; i++)
+    {
+        cout << chave[i] << endl;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

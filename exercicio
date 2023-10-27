@@ -4,17 +4,27 @@ using namespace std;
 int main()
 {
 
-int num;
+/* int num;
 
 cout << "digite um numero" << endl;
 cin >> num;
 
-if ( num >= 0)
+switch (num)
 {
-    cout << "é zero" << endl;
-}else{
-    cout << " é negativo" << endl;
-}
+case 1:
+    cout << " 0 numero é 1 " << endl;
+    break;
+
+case 2: 
+    cout << "O numero é 2" << endl;
+    break;
+
+default:
+cout << "O Número é 3" << endl;
+    break;
+}*/
+
+
 
 return 0;
 }
