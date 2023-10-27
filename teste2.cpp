@@ -157,6 +157,17 @@ int main(){
     }
 }
 
+int main()
+{
+    string cars[] = {"Volvo", "BMW", "Ford", "Madza", "Tesla"};
+    string cars2[] = {};
+
+    cars2[0] = "teste";
+    cout << cars[2] << "\n";
+    cars[2] ="Opel";
+    cout << cars[2] << "\n"; 
+}
+
 
 
 
