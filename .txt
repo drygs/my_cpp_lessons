@@ -1,5 +1,3 @@
-# my_cpp_lessons
-aulas de c++.
 comandos 
 git add -A
 git commit -m "DiogoSoares"
