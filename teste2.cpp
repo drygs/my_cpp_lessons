@@ -167,16 +167,4 @@ int main()
     cars[2] ="Opel";
     cout << cars[2] << "\n"; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
+//OLA.
