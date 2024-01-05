@@ -6,5 +6,3 @@ git commit -m "DiogoSoares"
 git push
 git pull
 git clone (link ssh)
-
-teste

@@ -1,4 +1,0 @@
-comandos 
-git add -A
-git commit -m "DiogoSoares"
-git push
