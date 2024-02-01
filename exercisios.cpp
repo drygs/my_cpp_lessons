@@ -26,9 +26,9 @@ void readMatriz(int array[][3], int size){
 
     for(int i = 0; i < size; i++){
         for(int n = 0; n < size; n++){
-            if(array[i][n] < lower){
+            if(arr[i][n] < lower){
 
-                lower = array[i][n];
+                lower = arr[i][n];
                 //line = i;
             } 
         }
@@ -38,18 +38,7 @@ void readMatriz(int array[][3], int size){
     //cout << "The line is: " << line + 1 << endl;
 };
 
-void shorArr(int n){
 
-    for(int l = 0; l < n; l++){
-        for(int c = 0; c < n; c++){
-
-            cout << arr[l][c];
-
-        }
-        cout << endl;
-    }
-
-};
 
 int main(){
 
