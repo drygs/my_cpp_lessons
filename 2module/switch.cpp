@@ -48,6 +48,7 @@ void executaCalculo(int i, int x, int y){
         break;
     
     default:
+        cout << "A" << endl;
         break;
     }
 
