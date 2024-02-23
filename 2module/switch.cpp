@@ -20,6 +20,7 @@ void rest(int a, int b){
 }
 
 void menu(){
+    system("clear");
     cout <<"======================="<<endl;
     cout <<"          MENU"<<endl;
     cout <<"======================="<<endl;
@@ -30,20 +31,20 @@ int getOpcao(){
     cin >> opcao;
     return opcao;
 }
-void executaCalculo(int i){
+void executaCalculo(int i, int x, int y){
     switch (i)
     {
     case 1:
-        soma(int a, int b);
+        soma(x,y);
         break;
     case 2:
-        mult();
+        mult(x, y);
         break;
     case 3:
-        divisao();
+        divisao(x, y);
         break;
     case 4:
-        rest();
+        rest(x, y);
         break;
     
     default:
@@ -52,8 +53,35 @@ void executaCalculo(int i){
 
 }
 
-int main(){
+int getvalorX(){
+    int x;
+    cout << "Digite um valor: ";
+    cin >> x;
+    return x;
+}
 
+int getvalorY(){
+    int y;
+    cout << "Digite o Valor de Y: ";
+    cin >> y;
+    return y;
+}
+
+int main(){
+    
+    int a;
+    int b;
+    int opcao;
+    menu();
+    cin.get();
+    system("clear");
+    opcao = getOpcao();
+    system("clear");
+    a = getvalorX();
+    b = getvalorY();
+    executaCalculo(opcao, a, b);
+
+    return 0;
 }
 
 
