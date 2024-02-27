@@ -3,30 +3,6 @@
 using namespace std;
 
 
-void menu(){
-    int opcao;
-    cout <<" ____________" <<endl;
-    cout <<"|            |"<< endl;
-    cout <<"|    MENU    |"<<endl;
-    cout <<"|____________|"<<endl;
-    cout <<"1- Calculo \n2- Notas \n3- Tabuada" << endl;
-    cin >> opcao;
-    system("clear");
-    switch (opcao){
-    case 1:
-        calculo();
-        break;
-    case 2:
-        notas();
-        break;
-    case 3:
-        tabuada();
-        break;
-    
-    default:
-        break;
-    }
-}
 
 void calculo(){
     int a ,b, raio;
@@ -111,6 +87,31 @@ void tabuada(){
     
     for(int n = 1; n < 11; n++){
         cout << mult << " X " << n << " = " << mult*n << endl;
+    }
+}
+
+void menu(){
+    int opcao;
+    cout <<" ____________" <<endl;
+    cout <<"|            |"<< endl;
+    cout <<"|    MENU    |"<<endl;
+    cout <<"|____________|"<<endl;
+    cout <<"1- Calculo \n2- Notas \n3- Tabuada" << endl;
+    cin >> opcao;
+    system("clear");
+    switch (opcao){
+    case 1:
+        calculo();
+        break;
+    case 2:
+        notas();
+        break;
+    case 3:
+        tabuada();
+        break;
+    
+    default:
+        break;
     }
 }
 
