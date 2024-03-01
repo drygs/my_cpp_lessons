@@ -1,0 +1,3 @@
+1- Ler e armazenar numa variavel o valor do sensor 
+2- Quando o led ficar amarelo iniciar e parar a rega
+3- 
