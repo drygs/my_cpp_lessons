@@ -1,11 +1,15 @@
 import random
+import time
+
 
 def roletarussa():
     input("Começar o Jogo:")
     while True:
         bala = random.randint(0, 6)
         if bala == 1:
-            print("Bye bye")
+            print("piuu piuu")
+            print("you dead...")
+            time.sleep(5)
             break
         else:
             print("Bala {} Saiu".format(bala))
