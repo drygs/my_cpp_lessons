@@ -2,15 +2,31 @@
 using namespace std;
 
 
-int soma(int list[]){
-    float soma = 0;
-    for(int i = 0; i<5; i++){
-        soma += list[i];
-    }
+class carro{
+    public:
+        int anos;
+        string marca;
+        void setVelocidade(int v){
+            velocidade = v;
+        }
+    private:
+        int velocidade;
+        void velMED(int vm){
+            int velMedia = vm;
+        }
 
-return (int)soma;
-}
 
-void a (float a, float b = 10.2){
-    
+};
+
+int main(){
+    carro carro1;
+
+    carro1.anos = 15;
+    carro1.marca = "BMW";
+
+
+    cout << carro1.anos << "\n";
+
+    return 0;
+
 }
