@@ -18,7 +18,7 @@ void insereLivro(livro &l){
 
 void mostraLivro(livro l){
     
-    cout << "O Titulo é: "<< l.titulo << endl;
+    cout << "O Titulo e: "<< l.titulo << endl;
 }
 int main(){
     livro livro1;

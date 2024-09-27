@@ -70,22 +70,22 @@ int main(){
     switch(escolha)
     {
     case 1:
-        system("clear");
+        system("clear||cls");
         adicionarProduto(produtos, quantidadeAtual);
-        system("clear");
+        system("clear||cls");
         break;
     case 2:
-        system("clear");
+        system("clear||cls");
         exibirProdutos(produtos, quantidadeAtual);
-        system("clear");
+        system("clear||cls");
         break;
     case 3:
-        system("clear");
+        system("clear||cls");
         calcularValorTotal(produtos,quantidadeAtual);
-        system("clear");
+        system("clear||cls");
         break;
     case 0:
-        system("clear");
+        system("clear||cls");
         break;
         }
     } while (escolha != 0);
