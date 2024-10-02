@@ -1,91 +1,99 @@
 #include <iostream>
 #include <fstream>
 #include <sys/stat.h>
+#include <sstream>
 #include <cctype>
 using namespace std;
 
-
-
-struct Produto
-{
+// Definição da estrutura do produto
+struct Produto {
     int id;
     string nome;
     float preco;
     int quantidade;
 };
 
+// Declaração de variáveis globais
 Produto produtos[100];
 int quantidadeAtual = 0;
+int ultimonum = 0;
 
+// Função para obter o último ID da base de dados
+int obterUltimoId(const string& nomeArquivo) {
+    ifstream arquivo(nomeArquivo);
+    string linha;
+    string ultimaLinha;
 
+    if (arquivo.is_open()) {
+        while (getline(arquivo, linha)) {
+            ultimaLinha = linha;  // Armazena a última linha
+        }
+        arquivo.close();
+    }
+    
+    if (!ultimaLinha.empty()) {
+        stringstream ss(ultimaLinha);
+        string idStr;
+        getline(ss, idStr, ',');  // Obtém o primeiro valor (ID) até a primeira vírgula
+        ultimonum = stoi(idStr);  // Converte a string ID para inteiro
+    }
+    return ultimonum;
+}
 
-//verifica existencia de arquivo de data base 
+// Verifica a existência de arquivo de base de dados 
 bool arquivoExiste(const std::string& nomeArquivo) {
     struct stat buffer;
     return (stat(nomeArquivo.c_str(), &buffer) == 0);  // Retorna true se o arquivo existir
 }
 
-
-//pergunta se quer criar base de dados ou nao
-
-void create_db(){
+// Pergunta se quer criar base de dados ou não
+void create_db() {
     char confirm;
     string db = "dados.csv";
 
-
-    while(true){
-        cout << "Usar data base? [S|N]";
+    while (true) {
+        cout << "Usar data base? [S|N]: ";
         cin >> confirm;
         confirm = tolower(confirm);
-    
-        if(confirm == 's'){
-            if (arquivoExiste(db)){
-                cout <<"Usando DB existente" << "\n";
-                ifstream arquivo("dados.csv");
-            }
-            else{
+
+        if (confirm == 's') {
+            if (arquivoExiste(db)) {
+                cout << "Usando DB existente" << "\n";
+                ultimonum = obterUltimoId(db);  // Carrega o último ID
+            } else {
                 cout << "Criando DB" << "\n";
-                ofstream arquivo("dados.csv");
+                ofstream arquivo(db);  // Cria um novo arquivo
+                arquivo.close();
             }
 
-            cout << "Press Enter" << "\n";
-            cin.get();
+            cout << "Pressione Enter" << "\n";
             cin.ignore();
+            cin.get();  // Aguarda a tecla Enter
 
             system("clear||cls");
             break;
-        }
-        else if(confirm == 'n'){
-
-            cout << "Apos o processo os dados serão perdidos"<<"\n";
-            cout << "Press Enter" << "\n";
-
-            cin.get();
+        } else if (confirm == 'n') {
+            cout << "Após o processo os dados serão perdidos" << "\n";
+            cout << "Pressione Enter" << "\n";
             cin.ignore();
+            cin.get();  // Aguarda a tecla Enter
 
             system("clear||cls");
             break;
-        }
-        else{
-
-            cout << "Digite um valor valido" << "\n";
-            cout << "Press Enter" << "\n";
-
-            cin.get();
+        } else {
+            cout << "Digite um valor válido" << "\n";
+            cout << "Pressione Enter" << "\n";
             cin.ignore();
+            cin.get();  // Aguarda a tecla Enter
 
             system("clear||cls");
-            
-        }  
-
+        }
     }
-
-
 }
 
-void adicionarProduto(Produto produtos[], int& quantidadeAtual){
-    cout << "Insira o id do produto: ";
-    cin >> produtos[quantidadeAtual].id;
+// Função para adicionar um produto à base de dados
+void adicionarProduto(Produto produtos[], int& quantidadeAtual, int& ultimonum) {
+    produtos[quantidadeAtual].id = ++ultimonum;
 
     cout << "Insira o nome do produto: ";
     cin >> produtos[quantidadeAtual].nome;
@@ -93,56 +101,87 @@ void adicionarProduto(Produto produtos[], int& quantidadeAtual){
     cout << "Insira o preço do produto: ";
     cin >> produtos[quantidadeAtual].preco;
 
-    cout << "Insira a quantidade em stock do produto: ";
+    cout << "Insira a quantidade em estoque do produto: ";
     cin >> produtos[quantidadeAtual].quantidade;
 
-    ofstream arquivo("dados.csv", ios::app);  //"append" adiciona ao final
-        //Escreve na db
-    arquivo <<produtos[quantidadeAtual].id <<","
+    // Abrir arquivo e adicionar produto
+    ofstream arquivo("dados.csv", ios::app);  // "append" adiciona ao final
+    arquivo << produtos[quantidadeAtual].id << ","
             << produtos[quantidadeAtual].nome << ","
             << produtos[quantidadeAtual].preco << ","
             << produtos[quantidadeAtual].quantidade << "\n";
     arquivo.close();  // Fecha o arquivo
     cout << "Produto adicionado com sucesso!\n";
 
-    // 4. Atualiza a quantidade de produtos no array
-    quantidadeAtual++;
-
+    quantidadeAtual++;  // Incrementa o contador de produtos
 }
 
-void menu(){
+// Função para exibir produtos
+void exibirProdutos() {
+    if (quantidadeAtual == 0) {
+        cout << "Nenhum produto cadastrado.\n";
+        return;
+    }
+
+    cout << "Produtos cadastrados:\n";
+    for (int i = 0; i < quantidadeAtual; i++) {
+        cout << "ID: " << produtos[i].id << ", "
+             << "Nome: " << produtos[i].nome << ", "
+             << "Preço: R$ " << produtos[i].preco << ", "
+             << "Quantidade: " << produtos[i].quantidade << "\n";
+    }
+}
+
+// Função para calcular o valor total do estoque
+void calcularValorTotal() {
+    float total = 0.0;
+
+    for (int i = 0; i < quantidadeAtual; i++) {
+        total += produtos[i].preco * produtos[i].quantidade;
+    }
+
+    cout << "Valor total do estoque: R$ " << total << "\n";
+}
+
+// Menu principal
+void menu() {
     int escolha;
-    do
-    {
-    cout << "Escolha: \n 1-Adicionar produto \n 2-Exibir produtos \n 3-Calcular valor total de Stock \n 0-Sair \n";
-    cin >> escolha;
-    switch(escolha)
-    {
-    case 1:
-        system("cls||clear");
-        adicionarProduto(produtos, quantidadeAtual);
-        system("cls||clear");
-
-        break;
-    case 2:
-
-        break;
-    case 3:
-
-        break;
-    case 0:
-        system("clear||cls");
-        break;
+    do {
+        cout << "Escolha: \n 1-Adicionar produto \n 2-Exibir produtos \n 3-Calcular valor total de estoque \n 0-Sair \n";
+        cin >> escolha;
+        switch (escolha) {
+            case 1:
+                system("cls||clear");
+                adicionarProduto(produtos, quantidadeAtual, ultimonum);
+                system("cls||clear");
+                break;
+            case 2:
+                system("cls||clear");
+                exibirProdutos();
+                cout << "Pressione Enter para continuar...\n";
+                cin.ignore();
+                cin.get();  // Aguarda a tecla Enter
+                system("cls||clear");
+                break;
+            case 3:
+                system("cls||clear");
+                calcularValorTotal();
+                cout << "Pressione Enter para continuar...\n";
+                cin.ignore();
+                cin.get();  // Aguarda a tecla Enter
+                system("cls||clear");
+                break;
+            case 0:
+                system("clear||cls");
+                break;
+            default:
+                cout << "Escolha inválida! Tente novamente.\n";
         }
     } while (escolha != 0);
 }
 
-
-int main(){
+int main() {
     create_db();
     menu();
-    
+    return 0;
 }
-
-
-
