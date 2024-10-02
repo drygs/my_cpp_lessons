@@ -2,7 +2,6 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <sstream>
-#include <cctype>
 using namespace std;
 
 // Definição da estrutura do produto
@@ -98,7 +97,7 @@ void adicionarProduto(Produto produtos[], int& quantidadeAtual, int& ultimonum) 
     cout << "Insira o nome do produto: ";
     cin >> produtos[quantidadeAtual].nome;
 
-    cout << "Insira o preço do produto: ";
+    cout << "Insira o preco do produto: ";
     cin >> produtos[quantidadeAtual].preco;
 
     cout << "Insira a quantidade em estoque do produto: ";
@@ -109,7 +108,8 @@ void adicionarProduto(Produto produtos[], int& quantidadeAtual, int& ultimonum) 
     arquivo << produtos[quantidadeAtual].id << ","
             << produtos[quantidadeAtual].nome << ","
             << produtos[quantidadeAtual].preco << ","
-            << produtos[quantidadeAtual].quantidade << "\n";
+            << produtos[quantidadeAtual].quantidade << ","
+            << "E" << "\n";
     arquivo.close();  // Fecha o arquivo
     cout << "Produto adicionado com sucesso!\n";
 
@@ -127,8 +127,9 @@ void exibirProdutos() {
     for (int i = 0; i < quantidadeAtual; i++) {
         cout << "ID: " << produtos[i].id << ", "
              << "Nome: " << produtos[i].nome << ", "
-             << "Preço: R$ " << produtos[i].preco << ", "
+             << "Preço: " << produtos[i].preco <<"€" << ", "
              << "Quantidade: " << produtos[i].quantidade << "\n";
+             
     }
 }
 
@@ -140,7 +141,7 @@ void calcularValorTotal() {
         total += produtos[i].preco * produtos[i].quantidade;
     }
 
-    cout << "Valor total do estoque: R$ " << total << "\n";
+    cout << "Valor total do estoque: " << total <<"€"<< "\n";
 }
 
 // Menu principal
