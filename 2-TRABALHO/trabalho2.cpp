@@ -10,12 +10,14 @@ struct Produto {
     string nome;
     float preco;
     int quantidade;
+    char status;
 };
 
 // Declaração de variáveis globais
 Produto produtos[100];
 int quantidadeAtual = 0;
 int ultimonum = 0;
+bool usarDB = true;  // Flag para determinar se a base de dados será usada
 
 // Função para obter o último ID da base de dados
 int obterUltimoId(const string& nomeArquivo) {
@@ -51,11 +53,12 @@ void create_db() {
     string db = "dados.csv";
 
     while (true) {
-        cout << "Usar data base? [S|N]: ";
+        cout << "Usar base de dados? [S|N]: ";
         cin >> confirm;
         confirm = tolower(confirm);
 
         if (confirm == 's') {
+            usarDB = true;
             if (arquivoExiste(db)) {
                 cout << "Usando DB existente" << "\n";
                 ultimonum = obterUltimoId(db);  // Carrega o último ID
@@ -64,33 +67,18 @@ void create_db() {
                 ofstream arquivo(db);  // Cria um novo arquivo
                 arquivo.close();
             }
-
-            cout << "Pressione Enter" << "\n";
-            cin.ignore();
-            cin.get();  // Aguarda a tecla Enter
-
-            system("clear||cls");
             break;
         } else if (confirm == 'n') {
-            cout << "Após o processo os dados serão perdidos" << "\n";
-            cout << "Pressione Enter" << "\n";
-            cin.ignore();
-            cin.get();  // Aguarda a tecla Enter
-
-            system("clear||cls");
+            usarDB = false;
+            cout << "Os dados serão perdidos após o processo.\n";
             break;
         } else {
-            cout << "Digite um valor válido" << "\n";
-            cout << "Pressione Enter" << "\n";
-            cin.ignore();
-            cin.get();  // Aguarda a tecla Enter
-
-            system("clear||cls");
+            cout << "Digite um valor válido.\n";
         }
     }
 }
 
-// Função para adicionar um produto à base de dados
+// Função para adicionar um produto ao array ou à base de dados
 void adicionarProduto(Produto produtos[], int& quantidadeAtual, int& ultimonum) {
     produtos[quantidadeAtual].id = ++ultimonum;
 
@@ -103,52 +91,172 @@ void adicionarProduto(Produto produtos[], int& quantidadeAtual, int& ultimonum) 
     cout << "Insira a quantidade em estoque do produto: ";
     cin >> produtos[quantidadeAtual].quantidade;
 
-    // Abrir arquivo e adicionar produto
-    ofstream arquivo("dados.csv", ios::app);  // "append" adiciona ao final
-    arquivo << produtos[quantidadeAtual].id << ","
-            << produtos[quantidadeAtual].nome << ","
-            << produtos[quantidadeAtual].preco << ","
-            << produtos[quantidadeAtual].quantidade << ","
-            << "E" << "\n";
-    arquivo.close();  // Fecha o arquivo
-    cout << "Produto adicionado com sucesso!\n";
+    produtos[quantidadeAtual].status = 'E';  // Produto habilitado
 
+    if (usarDB) {
+        // Abrir arquivo e adicionar produto
+        ofstream arquivo("dados.csv", ios::app);  // "append" adiciona ao final
+        arquivo << produtos[quantidadeAtual].id << ","
+                << produtos[quantidadeAtual].nome << ","
+                << produtos[quantidadeAtual].preco << ","
+                << produtos[quantidadeAtual].quantidade << ","
+                << produtos[quantidadeAtual].status << "\n";
+        arquivo.close();  // Fecha o arquivo
+    }
+
+    cout << "Produto adicionado com sucesso!\n";
     quantidadeAtual++;  // Incrementa o contador de produtos
 }
 
-// Função para exibir produtos
+// Função para exibir produtos habilitados
 void exibirProdutos() {
-    if (quantidadeAtual == 0) {
-        cout << "Nenhum produto cadastrado.\n";
-        return;
-    }
+    if (usarDB) {
+        ifstream arquivo("dados.csv");
+        string linha;
 
-    cout << "Produtos cadastrados:\n";
-    for (int i = 0; i < quantidadeAtual; i++) {
-        cout << "ID: " << produtos[i].id << ", "
-             << "Nome: " << produtos[i].nome << ", "
-             << "Preço: " << produtos[i].preco <<"€" << ", "
-             << "Quantidade: " << produtos[i].quantidade << "\n";
-             
+        bool produtoHabilitadoEncontrado = false;
+        cout << "Produtos:\n";
+
+        while (getline(arquivo, linha)) {
+            stringstream ss(linha);
+            string idStr, nome, preco, quantidade, status;
+            
+            getline(ss, idStr, ',');
+            getline(ss, nome, ',');
+            getline(ss, preco, ',');
+            getline(ss, quantidade, ',');
+            getline(ss, status, ',');
+
+            if (status == "E") {  // Apenas produtos habilitados ("E")
+                produtoHabilitadoEncontrado = true;
+                cout << "ID: " << idStr << ", "
+                     << "Nome: " << nome << ", "
+                     << "Preco: " << preco <<"€" << ", "
+                     << "Quantidade: " << quantidade << "\n";
+            }
+        }
+
+        if (!produtoHabilitadoEncontrado) {
+            cout << "Nenhum produto .\n";
+        }
+
+        arquivo.close();
+    } else {
+        if (quantidadeAtual == 0) {
+            cout << "Nenhum produto cadastrado.\n";
+            return;
+        }
+
+        cout << "Produtos cadastrados :\n";
+        for (int i = 0; i < quantidadeAtual; i++) {
+            if (produtos[i].status == 'E') {
+                cout << "ID: " << produtos[i].id << ", "
+                     << "Nome: " << produtos[i].nome << ", "
+                     << "Preço: " << produtos[i].preco << "€" << ", "
+                     << "Quantidade: " << produtos[i].quantidade << "\n";
+            }
+        }
     }
 }
 
-// Função para calcular o valor total do estoque
+// Função para calcular o valor total do estoque de produtos habilitados
 void calcularValorTotal() {
     float total = 0.0;
 
-    for (int i = 0; i < quantidadeAtual; i++) {
-        total += produtos[i].preco * produtos[i].quantidade;
+    if (usarDB) {
+        ifstream arquivo("dados.csv");
+        string linha;
+
+        while (getline(arquivo, linha)) {
+            stringstream ss(linha);
+            string idStr, nome, preco, quantidade, status;
+
+            getline(ss, idStr, ',');
+            getline(ss, nome, ',');
+            getline(ss, preco, ',');
+            getline(ss, quantidade, ',');
+            getline(ss, status, ',');
+
+            if (status == "E") {  // Apenas produtos habilitados ("E")
+                total += stof(preco) * stoi(quantidade);
+            }
+        }
+        arquivo.close();
+    } else {
+        for (int i = 0; i < quantidadeAtual; i++) {
+            if (produtos[i].status == 'E') {
+                total += produtos[i].preco * produtos[i].quantidade;
+            }
+        }
     }
 
-    cout << "Valor total do estoque: " << total <<"€"<< "\n";
+    cout << "Valor total do estoque de produtos habilitados: " << total << "€\n";
 }
 
-// Menu principal
+// Função para excluir (desabilitar) um produto
+void excluirProduto() {
+    int id;
+    cout << "Insira o ID do produto a ser excluído: ";
+    cin >> id;
+
+    if (usarDB) {
+        ifstream arquivo("dados.csv");
+        ofstream arquivoTemp("temp.csv");  // Arquivo temporário para armazenar os dados modificados
+        string linha;
+        bool encontrado = false;
+
+        while (getline(arquivo, linha)) {
+            stringstream ss(linha);
+            string idStr, nome, preco, quantidade, status;
+            
+            getline(ss, idStr, ',');
+            getline(ss, nome, ',');
+            getline(ss, preco, ',');
+            getline(ss, quantidade, ',');
+            getline(ss, status, ',');
+
+            if (stoi(idStr) == id) {
+                status = "D";  // Desabilita o produto mudando o status para "D"
+                encontrado = true;
+            }
+
+            // Escreve no arquivo temporário
+            arquivoTemp << idStr << "," << nome << "," << preco << "," << quantidade << "," << status << "\n";
+        }
+
+        arquivo.close();
+        arquivoTemp.close();
+
+        remove("dados.csv");            // Remove o arquivo original
+        rename("temp.csv", "dados.csv");  // Renomeia o temporário para o original
+
+        if (encontrado) {
+            cout << "Produto com ID " << id << " foi excluído com sucesso.\n";
+        } else {
+            cout << "Produto com ID " << id << " não encontrado.\n";
+        }
+    } else {
+        bool encontrado = false;
+        for (int i = 0; i < quantidadeAtual; i++) {
+            if (produtos[i].id == id) {
+                produtos[i].status = 'D';  // Desabilita o produto
+                encontrado = true;
+                cout << "Produto com ID " << id << " foi excluído com sucesso.\n";
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            cout << "Produto com ID " << id << " não encontrado.\n";
+        }
+    }
+}
+
+// Menu principal atualizado
 void menu() {
     int escolha;
     do {
-        cout << "Escolha: \n 1-Adicionar produto \n 2-Exibir produtos \n 3-Calcular valor total de estoque \n 0-Sair \n";
+        cout << "Escolha: \n 1-Adicionar produto \n 2-Exibir produtos habilitados \n 3-Calcular valor total de estoque habilitado \n 4-Excluir produto \n 0-Sair \n";
         cin >> escolha;
         switch (escolha) {
             case 1:
@@ -161,7 +269,7 @@ void menu() {
                 exibirProdutos();
                 cout << "Pressione Enter para continuar...\n";
                 cin.ignore();
-                cin.get();  // Aguarda a tecla Enter
+                cin.get();
                 system("cls||clear");
                 break;
             case 3:
@@ -169,7 +277,15 @@ void menu() {
                 calcularValorTotal();
                 cout << "Pressione Enter para continuar...\n";
                 cin.ignore();
-                cin.get();  // Aguarda a tecla Enter
+                cin.get();
+                system("cls||clear");
+                break;
+            case 4:
+                system("cls||clear");
+                excluirProduto();
+                cout << "Pressione Enter para continuar...\n";
+                cin.ignore();
+                cin.get();
                 system("cls||clear");
                 break;
             case 0:
@@ -177,12 +293,17 @@ void menu() {
                 break;
             default:
                 cout << "Escolha inválida! Tente novamente.\n";
-        }
+                cout << "Pressione Enter para continuar...\n";
+                cin.ignore();
+                cin.get();
+        }    
+        system("clear||cls");
     } while (escolha != 0);
 }
 
 int main() {
     create_db();
+    system("clear||cls");
     menu();
     return 0;
 }
