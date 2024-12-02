@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     // Define a data e hora alvo como string
-    const string alvo = "Nov 27 12:27:00 2024";
+    string alvo = "Nov 29 09:37:00 2024";
 
     // Prepara uma estrutura tm para o horário alvo
     tm tmAlvo = {};
