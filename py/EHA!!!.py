@@ -23,7 +23,7 @@ time.sleep(2)
 for i in range(1000):
     time.sleep(0.5)SO QUER AS DE 14 DA PEPEKA APERTADINHA!!!
     SO QUER AS DE 14 DA PEPEKA APERTADINHA!!!
-    
+    SO Q
     pyautogui.write("SO QUER AS DE 14 DA PEPEKA APERTADINHA!!!")
     pyautogui.press("Enter")
     if keyboard.is_pressed('F6'):

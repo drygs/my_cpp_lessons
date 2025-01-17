@@ -20,11 +20,10 @@ pyautogui.moveTo(963, 951)
 pyautogui.click()
 time.sleep(2)
 
-for i in range(1000):
-    time.sleep(0.5)SO QUER AS DE 14 DA PEPEKA APERTADINHA!!!
-    SO QUER AS DE 14 DA PEPEKA APERTADINHA!!!
-    
-    pyautogui.write("SO QUER AS DE 14 DA PEPEKA APERTADINHA!!!")
+for i in range(3):
+    time.sleep(0.5)
+
+    pyautogui.write("SO QUERES AS DE 14 DA PEPEKA APERTADINHA!!!")
     pyautogui.press("Enter")
     if keyboard.is_pressed('F6'):
         print("F6 pressionado! Parando a automação.")
