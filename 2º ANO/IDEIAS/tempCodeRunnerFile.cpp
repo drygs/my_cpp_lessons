@@ -3,7 +3,7 @@ using namespace std;
 
 
 int* gerarNum() {
-    static int dado[3];
+    int dado[3];
     srand(time(NULL));
     for (int i = 0; i < 3; i++) {
         dado[i] = 1 + rand() % 6; 
@@ -13,14 +13,14 @@ int* gerarNum() {
 
 
 int* escolhas() {
-    static int escolha[3];
+    int escolha[3];
     cout << "Aposte em 3 números de 1 a 6: ";
     cin >> escolha[0] >> escolha[1] >> escolha[2]; 
     return escolha;
 }
 
 void mult(){
-    float aposta = 0;
+    int multiplicador, aposta = 0;
     int* escolha = escolhas();
     int* dado = gerarNum();
 
@@ -37,8 +37,7 @@ void mult(){
 }
 
 int main(){
-    system("clear||cls");
+    system("clear|| cls");
     mult();
-
     return 0;
-} 
+}  
