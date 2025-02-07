@@ -1,3 +1,5 @@
+//Grupo Alexandre Carvalho e Diogo Soares
+
 #include <iostream>
 #include <string>
 #include <cctype>  // Para toupper()
