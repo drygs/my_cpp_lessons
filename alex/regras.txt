@@ -1,0 +1,4 @@
+regras : frase a advinhar
+
+jogo tipo forca mas advinhar frases 
+maiusculas
