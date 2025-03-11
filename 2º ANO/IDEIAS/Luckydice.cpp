@@ -21,6 +21,7 @@ int* escolhas() {
 
 void mult(){
     float aposta = 0;
+    float ganho = 0;
     int* escolha = escolhas();
     int* dado = gerarNum();
 
@@ -29,16 +30,18 @@ void mult(){
     for(int n = 0; n < 3; n++){
         for(int i = 0; i < 3; i++){
             if(escolha[i] == dado[n])
-                aposta =aposta*1.7;
+                ganho =aposta*1.7;
         }
     }
     cout << "Os valores dos dados foram: " << dado[0] << " " << dado[1] << " " << dado[2] << endl;
-    cout << "Teve um ganho de " << aposta << endl;   
+    cout << "Teve um ganho de " << ganho << endl;   
 }
 
 int main(){
-    system("clear||cls");
-    mult();
+
+        
+        system("clear||cls");
+        mult();
 
     return 0;
 } 

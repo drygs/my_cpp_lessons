@@ -9,7 +9,6 @@ string maiusculas() {
     cout << "Digite uma frase: ";
     getline(cin, frase);
 
-    // Converter para maiúsculas
     for (char &c : frase) {
         c = toupper(c);
     }
@@ -18,7 +17,7 @@ string maiusculas() {
 }
 
 void exibirFrase(const string& frase, string& reveladas) {
-    // Exibe a frase com _ para as letras não reveladas
+    // Exibe a frase com _ para as letras não reveladas (ignora os espaços)
     for (int i = 0; i < frase.length(); i++) {
         if (frase[i] == ' ' || reveladas[i] == '1') {
             cout << frase[i] << " ";  // Exibe a letra ou espaço
@@ -43,19 +42,13 @@ void exibirFrase(const string& frase, string& reveladas) {
             acertou = true;
         }
     }
-
-    if (acertou) {
-        cout << "Voce acertou! A letra '" << letra << "' foi revelada." << endl;
-    } else {
-        cout << "A letra '" << letra << "' nao esta na frase." << endl;
-    }
 }
 
-bool fraseRevelada(const string& reveladas) {
-
-    for (char c : reveladas) {
-        if (c == '0') { 
-            return false;
+bool fraseRevelada(const string& reveladas, const string& frase) {
+    // Verifica se todas as letras foram reveladas, ignorando espaços
+    for (int i = 0; i < reveladas.length(); i++) {
+        if (frase[i] != ' ' && reveladas[i] == '0') { 
+            return false;  
         }
     }
     return true;
@@ -65,12 +58,12 @@ int main() {
     string frase = maiusculas();
     string reveladas(frase.length(), '0');
 
-    
-    while (!fraseRevelada(reveladas)) {
+    while (!fraseRevelada(reveladas, frase)) {
+        system("clear||cls");
         exibirFrase(frase, reveladas);  
     }
 
-    cout << "Parabens! Voce revelou toda a frase!" << endl;
-
+    cout << frase << endl;
+    cout << "Parabéns! Você revelou toda a frase!" << endl;
     return 0;
 }

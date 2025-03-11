@@ -9,7 +9,6 @@ string maiusculas() {
     cout << "Digite uma frase: ";
     getline(cin, frase);
 
-    // Converter para maiúsculas
     for (char &c : frase) {
         c = toupper(c);
     }

@@ -1,1 +1,1 @@
-        system("clear||cls");
+d
