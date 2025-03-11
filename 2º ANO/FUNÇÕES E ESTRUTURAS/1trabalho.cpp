@@ -43,6 +43,7 @@ void exibirProdutos(const Produto produtos[], int quantidadeAtual){
         cout << "press enter para voltar";
         cin.ignore();
         cin.get();
+        
     }
 }
 
