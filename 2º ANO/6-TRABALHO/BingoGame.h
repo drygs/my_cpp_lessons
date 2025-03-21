@@ -11,15 +11,15 @@ using namespace std;
 class BingoGame {
 public:
     BingoGame();
-    void start();
-    void generateCards(int numCards);
-    void drawNumber();
-    void runAutoMode();
-    void runManualMode();
+    void iniciar();
+    void gerarCartoes(int numCartoes);
+    void sortearNumero();
+    void executarModoAutomatico();
+    void executarModoManual();
 
 private:
-    NumberGenerator numberGenerator;
-    vector<BingoCard> cards;
+    NumberGenerator geradorNumeros;
+    vector<BingoCard> cartoes;
 };
 
 #endif

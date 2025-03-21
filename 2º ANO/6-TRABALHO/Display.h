@@ -8,7 +8,8 @@ using namespace std;
 
 class Display {
 public:
-    static void printTable(const vector<int>& drawnNumbers);
+    static void imprimirTabela(const vector<int>& numerosSorteados);
+    static void imprimirUltimosCincoNumeros(const vector<int>& numerosSorteados);
 };
 
 #endif

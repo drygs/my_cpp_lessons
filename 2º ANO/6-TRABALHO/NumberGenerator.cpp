@@ -3,26 +3,26 @@
 
 NumberGenerator::NumberGenerator(int min, int max) : rng(random_device{}()) {
     for (int i = min; i <= max; ++i) {
-        numbers.push_back(i);
+        numeros.push_back(i);
     }
-    shuffle(numbers.begin(), numbers.end(), rng);
+    shuffle(numeros.begin(), numeros.end(), rng);
 }
 
-int NumberGenerator::generate() {
-    if (numbers.empty()) {
+int NumberGenerator::gerar() {
+    if (numeros.empty()) {
         return -1; // Todos os números foram sorteados
     }
-    int number = numbers.back();
-    numbers.pop_back();
-    drawnNumbers.push_back(number);
-    return number;
+    int numero = numeros.back();
+    numeros.pop_back();
+    numerosSorteados.push_back(numero);
+    return numero;
 }
 
-void NumberGenerator::reset() {
-    drawnNumbers.clear();
-    shuffle(numbers.begin(), numbers.end(), rng);
+void NumberGenerator::reiniciar() {
+    numerosSorteados.clear();
+    shuffle(numeros.begin(), numeros.end(), rng);
 }
 
-const vector<int>& NumberGenerator::getDrawnNumbers() const {
-    return drawnNumbers;
+const vector<int>& NumberGenerator::getNumerosSorteados() const {
+    return numerosSorteados;
 }

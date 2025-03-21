@@ -4,24 +4,24 @@
 using namespace std;
 
 int main() {
-    BingoGame game;
-    game.start();
+    BingoGame jogo;
+    jogo.iniciar();
 
-    int numCards;
-    cout << "How many cards do you want to generate? ";
-    cin >> numCards;
-    game.generateCards(numCards);
+    int numCartoes;
+    cout << "Quantos cartões deseja gerar? ";
+    cin >> numCartoes;
+    jogo.gerarCartoes(numCartoes);
 
-    char mode;
-    cout << "Choose mode (a for auto, m for manual): ";
-    cin >> mode;
+    char modo;
+    cout << "Escolha o modo (a para automático, m para manual): ";
+    cin >> modo;
 
-    if (mode == 'a' || mode == 'A') {
-        game.runAutoMode();
-    } else if (mode == 'm' || mode == 'M') {
-        game.runManualMode();
+    if (modo == 'a' || modo == 'A') {
+        jogo.executarModoAutomatico();
+    } else if (modo == 'm' || modo == 'M') {
+        jogo.executarModoManual();
     } else {
-        cout << "Invalid mode selected.\n";
+        cout << "Modo inválido selecionado.\n";
     }
 
     return 0;

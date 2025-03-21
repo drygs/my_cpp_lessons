@@ -9,13 +9,13 @@ using namespace std;
 class NumberGenerator {
 public:
     NumberGenerator(int min, int max);
-    int generate();
-    void reset();
-    const vector<int>& getDrawnNumbers() const;
+    int gerar();
+    void reiniciar();
+    const vector<int>& getNumerosSorteados() const;
 
 private:
-    vector<int> numbers;
-    vector<int> drawnNumbers;
+    vector<int> numeros;
+    vector<int> numerosSorteados;
     mt19937 rng;
 };
 

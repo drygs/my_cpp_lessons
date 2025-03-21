@@ -9,12 +9,12 @@ using namespace std;
 class BingoCard {
 public:
     BingoCard(int id);
-    void generate();
-    void printToFile(const string& filename) const;
+    void gerar();
+    void imprimirParaFicheiro(const string& nomeFicheiro) const;
 
 private:
     int id;
-    vector<vector<int>> card;
+    vector<vector<int>> cartao;
 };
 
 #endif

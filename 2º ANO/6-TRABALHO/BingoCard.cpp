@@ -4,30 +4,30 @@
 #include <random>
 
 BingoCard::BingoCard(int id) : id(id) {
-    card.resize(5, vector<int>(5));
+    cartao.resize(5, vector<int>(5));
 }
 
-void BingoCard::generate() {
-    vector<int> numbers;
+void BingoCard::gerar() {
+    vector<int> numeros;
     for (int i = 1; i <= 100; ++i) {
-        numbers.push_back(i);
+        numeros.push_back(i);
     }
-    shuffle(numbers.begin(), numbers.end(), mt19937(random_device{}()));
+    shuffle(numeros.begin(), numeros.end(), mt19937(random_device{}()));
 
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
-            card[i][j] = numbers[i * 5 + j];
+            cartao[i][j] = numeros[i * 5 + j];
         }
     }
 }
 
-void BingoCard::printToFile(const string& filename) const {
-    ofstream file(filename);
-    for (const auto& row : card) {
-        for (int number : row) {
-            file << number << "\t";
+void BingoCard::imprimirParaFicheiro(const string& nomeFicheiro) const {
+    ofstream ficheiro(nomeFicheiro);
+    for (const auto& linha : cartao) {
+        for (int numero : linha) {
+            ficheiro << numero << "\t";
         }
-        file << "\n";
+        ficheiro << "\n";
     }
-    file.close();
+    ficheiro.close();
 }
