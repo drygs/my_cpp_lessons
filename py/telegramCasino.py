@@ -28,7 +28,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Escolha uma opção válida!")
 
 def main():
-    TOKEN = '7807467676:AAH1WH2Wt1g7vPu5DpL3zbNLJh4_Dc7Bf7g'  # Substitua pelo seu token
+    TOKEN = ''  # Substitua pelo seu token
     application = Application.builder().token(TOKEN).build()
 
     # Comandos
